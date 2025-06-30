@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fabric Pattern Sense</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('/static/template.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 12px 20px;
+      gap: 20px;
+      z-index: 1000;
+      background: transparent;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .navbar button,
+    .navbar a.button {
+      background: #6a5acd;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .navbar button:hover,
+    .navbar a.button:hover {
+      background: #5a4abb;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 42px;
+      left: 0;
+      background-color: white;
+      padding: 14px;
+      min-width: 260px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1001;
+    }
+
+    .dropdown-content p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .dropdown-content a {
+      color: #6a5acd;
+      text-decoration: none;
+    }
+
+    .dropdown.active .dropdown-content {
+      display: block;
+    }
+
+    .main-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 500;
+    }
+
+    .center-box {
+      padding: 60px 80px;
+      border-radius: 16px;
+    }
+
+    .center-box h1 {
+      font-size: 3rem;
+      margin-bottom: 25px;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    }
+
+    .get-started {
+      padding: 12px 32px;
+      background: #6a5acd;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: background 0.3s ease;
+    }
+
+    .get-started:hover {
+      background: #5a4abb;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="/" class="button">🏠Home</a>
+    <div class="dropdown" id="aboutDropdown">
+      <button onclick="toggleDropdown('aboutDropdown')">About</button>
+      <div class="dropdown-content">
+        <p><strong>About This Project</strong></p>
+        <p>Fabric Pattern Sense uses deep learning to classify fabric types like floral, tribal, striped, etc.</p>
+      </div>
+    </div>
+    <div class="dropdown" id="contactDropdown">
+      <button onclick="toggleDropdown('contactDropdown')">Contact Us</button>
+      <div class="dropdown-content">
+        <p><strong>Contact Us</strong></p>
+        <p>Email: <a href="mailto:fabricpatternsense@gmail.com">fabricpatternsense@gmail.com</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="center-box">
+      <h1>Welcome to Fabric Pattern Sense</h1>
+      <a href="{{ url_for('app_page') }}" class="get-started" target="_blank">Get Started</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown(id) {
+      document.querySelectorAll('.dropdown').forEach(drop => {
+        if (drop.id === id) {
+          drop.classList.toggle("active");
+        } else {
+          drop.classList.remove("active");
+        }
+      });
+    }
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove("active"));
+      }
+    });
+  </script>
+</body>
+</html>

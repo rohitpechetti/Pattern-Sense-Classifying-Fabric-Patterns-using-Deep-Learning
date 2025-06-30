@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fabric Pattern Classifier</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('/static/result.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .home-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    .home-btn a {
+      background-color: #6a5acd;
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .home-btn a:hover {
+      background-color: #5a4abb;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 80px 30px 30px;
+      gap: 30px;
+    }
+
+    .predict-box {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      max-width: 450px;
+      width: 100%;
+    }
+
+    .predict-box h2 {
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    input[type="file"] {
+      margin: 15px 0;
+      width: 100%;
+    }
+
+    input[type="submit"] {
+      background-color: #6a5acd;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .prediction {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #6a5acd;
+      text-align: center;
+    }
+
+    .uploaded-img {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .uploaded-img img {
+      max-width: 300px;
+      border-radius: 12px;
+    }
+
+    .fabric-info-box {
+      padding: 30px;
+      border-left: 4px solid #6a5acd;
+      color: white;
+      max-width: 400px;
+      font-size: 1rem;
+    }
+
+    .arrow {
+      font-size: 2rem;
+      color: #fff;
+      margin: 0 10px;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .fabric-info-box {
+        border-left: none;
+        border-top: 4px solid #6a5acd;
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Home Button -->
+  <div class="home-btn">
+    <a href="/">🏠Home</a>
+  </div>
+
+  <div class="container">
+    <div class="predict-box">
+      <h2>Fabric Pattern Classifier</h2>
+      <form action="/predict" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required><br>
+        <input type="submit" value="Upload and Predict">
+      </form>
+
+      {% if prediction %}
+      <div class="prediction">
+        ✨ Predicted: <strong>{{ prediction }}</strong>
+      </div>
+
+      {% if image_path %}
+      <div class="uploaded-img">
+        <img src="{{ image_path }}" alt="Uploaded Image">
+      </div>
+      {% endif %}
+      {% endif %}
+    </div>
+
+    {% if prediction %}
+    <div class="arrow">➜</div>
+    <div class="fabric-info-box">
+      <h3>Fabric Info</h3>
+      <p>The predicted fabric pattern is <strong>{{ prediction }}</strong>. This pattern is commonly used in textile design and is helpful in apparel, fashion, or interiors.</p>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
